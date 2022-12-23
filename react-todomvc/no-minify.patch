@@ -1,0 +1,52 @@
+diff --git a/grunt/config/browserify.js b/grunt/config/browserify.js
+index 646b14d..b116a70 100644
+--- a/grunt/config/browserify.js
++++ b/grunt/config/browserify.js
+@@ -151,13 +151,13 @@ var min = {
+   standalone: 'React',
+   // Envify twice. The first ensures that when we uglifyify, we have the right
+   // conditions to exclude requires. The global transform runs on deps.
+-  transforms: [envifyProd, uglifyify],
++  transforms: [envifyProd],
+   globalTransforms: [envifyProd],
+   plugins: [collapser],
+   // No need to derequire because the minifier will mangle
+   // the "require" calls.
+ 
+-  after: [minify, bannerify],
++  after: [bannerify],
+ };
+ 
+ var addons = {
+@@ -182,13 +182,13 @@ var addonsMin = {
+   debug: false,
+   standalone: 'React',
+   packageName: 'React (with addons)',
+-  transforms: [shimDOMModules, envifyProd, uglifyify],
++  transforms: [shimDOMModules, envifyProd],
+   globalTransforms: [envifyProd],
+   plugins: [collapser],
+   // No need to derequire because the minifier will mangle
+   // the "require" calls.
+ 
+-  after: [minify, bannerify],
++  after: [bannerify],
+ };
+ 
+ // The DOM Builds
+@@ -215,13 +215,13 @@ var domMin = {
+   standalone: 'ReactDOM',
+   // Envify twice. The first ensures that when we uglifyify, we have the right
+   // conditions to exclude requires. The global transform runs on deps.
+-  transforms: [shimSharedModules, envifyProd, uglifyify],
++  transforms: [shimSharedModules, envifyProd],
+   globalTransforms: [envifyProd],
+   plugins: [collapser],
+   // No need to derequire because the minifier will mangle
+   // the "require" calls.
+ 
+-  after: [wrapperify, minify, bannerify],
++  after: [wrapperify, bannerify],
+ };
+ 
+ var domServer = {
