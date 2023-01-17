@@ -1,0 +1,3 @@
+docker build --tag react-todomvc react-todomvc
+docker run --rm react-todomvc cat /root/react/build/react-dom.min.js > react-dom.min.js
+docker run --rm react-todomvc cat /root/react/build/react-with-addons.min.js > react-with-addons.min.js

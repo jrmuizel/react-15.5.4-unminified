@@ -1,8 +1,18 @@
 diff --git a/grunt/config/browserify.js b/grunt/config/browserify.js
-index 646b14d..b116a70 100644
+index 646b14d..906134f 100644
 --- a/grunt/config/browserify.js
 +++ b/grunt/config/browserify.js
-@@ -151,13 +151,13 @@ var min = {
+@@ -37,6 +37,9 @@ var LICENSE_TEMPLATE =
+ function minify(src) {
+   return UglifyJS.minify(src, {fromString: true}).code;
+ }
++function uglifyifyNoMangle(src) {
++  return uglifyify(src, { mangle: false, output: { beautify: true }})
++}
+ 
+ // TODO: move this out to another build step maybe.
+ function bannerify(src) {
+@@ -151,13 +154,13 @@ var min = {
    standalone: 'React',
    // Envify twice. The first ensures that when we uglifyify, we have the right
    // conditions to exclude requires. The global transform runs on deps.
@@ -18,12 +28,12 @@ index 646b14d..b116a70 100644
  };
  
  var addons = {
-@@ -182,13 +182,13 @@ var addonsMin = {
+@@ -182,13 +185,13 @@ var addonsMin = {
    debug: false,
    standalone: 'React',
    packageName: 'React (with addons)',
 -  transforms: [shimDOMModules, envifyProd, uglifyify],
-+  transforms: [shimDOMModules, envifyProd],
++  transforms: [shimDOMModules, envifyProd, uglifyifyNoMangle],
    globalTransforms: [envifyProd],
    plugins: [collapser],
    // No need to derequire because the minifier will mangle
@@ -34,12 +44,12 @@ index 646b14d..b116a70 100644
  };
  
  // The DOM Builds
-@@ -215,13 +215,13 @@ var domMin = {
+@@ -215,13 +218,13 @@ var domMin = {
    standalone: 'ReactDOM',
    // Envify twice. The first ensures that when we uglifyify, we have the right
    // conditions to exclude requires. The global transform runs on deps.
 -  transforms: [shimSharedModules, envifyProd, uglifyify],
-+  transforms: [shimSharedModules, envifyProd],
++  transforms: [shimSharedModules, envifyProd, uglifyifyNoMangle],
    globalTransforms: [envifyProd],
    plugins: [collapser],
    // No need to derequire because the minifier will mangle
